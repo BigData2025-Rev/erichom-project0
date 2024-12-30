@@ -33,31 +33,34 @@ class Game:
         #print(f'Initial position: {initialPos}, direction: {direction}')
         if(status == 'newGame'):
             destroyer = Ships('Destroyer', 2)
-            destroyer.addCoords((1,1))
-            destroyer.addCoords((1,2))
+            x = random.randint(0,1)
+            destroyer.addCoords((x,1))
+            destroyer.addCoords((x,2))
             self.shipsRemaining += 1
-            self.enemyShips.add((1,1))
-            self.enemyShips.add((1,2))
+            self.enemyShips.add((x,1))
+            self.enemyShips.add((x,2))
 
             cruiser = Ships('Cruiser', 3)
-            cruiser.addCoords((3,0))
-            cruiser.addCoords((3,1))
-            cruiser.addCoords((3,2))
+            x = random.randint(2,4)
+            cruiser.addCoords((x,0))
+            cruiser.addCoords((x,1))
+            cruiser.addCoords((x,2))
             self.shipsRemaining += 1
-            self.enemyShips.add((3,0))
-            self.enemyShips.add((3,1))
-            self.enemyShips.add((3,2))
+            self.enemyShips.add((x,0))
+            self.enemyShips.add((x,1))
+            self.enemyShips.add((x,2))
 
             battleship = Ships('Battleship', 4)
-            battleship.addCoords((1,4))
-            battleship.addCoords((2,4))
-            battleship.addCoords((3,4))
-            battleship.addCoords((4,4))
+            y = random.randint(3,4)
+            battleship.addCoords((1,y))
+            battleship.addCoords((2,y))
+            battleship.addCoords((3,y))
+            battleship.addCoords((4,y))
             self.shipsRemaining += 1
-            self.enemyShips.add((1,4))
-            self.enemyShips.add((2,4))
-            self.enemyShips.add((3,4))
-            self.enemyShips.add((4,4))
+            self.enemyShips.add((1,y))
+            self.enemyShips.add((2,y))
+            self.enemyShips.add((3,y))
+            self.enemyShips.add((4,y))
         
 
         # print(f'Hits remaining on creation: {destroyer.hitsRemaining}')
@@ -91,7 +94,7 @@ class Game:
                 continue
 
             print('')
-            print('Enter menu codes (load, save, viewShips, viewData, viewSave) OR')
+            print('Enter menu codes (load, save, newGame, viewShips, viewData, viewSave) OR')
             print('')
             print('Enter coordinates of target (x, y):')
             x = input('x: ')
@@ -114,6 +117,8 @@ class Game:
             elif(x == 'viewSave'):
                 self.viewSave()
                 continue
+            elif(x == 'newGame'):
+                self.newGame()
 
             else: 
                 
@@ -146,6 +151,9 @@ class Game:
                 elif(y == 'viewSave'):
                     self.viewSave()
                     continue
+
+                elif(x == 'newGame'):
+                    self.newGame()
                 
                 else:
 
@@ -443,7 +451,19 @@ class Game:
         print('')
         self.gameState = 'saved'
 
-                
+    def newGame(self):
+        self.enemyShips = set()
+        self.successfulHits = set()
+        self.allGuesses = set()
+        self.gameGrid = [[0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 0, 0]]
+        self.gameState = ''
+        self.x = 0
+        self.y = 0
+        self.turns = 10
+        self.shipsRemaining = 0
+        self.splash = False       
+
+        self.drawUI('newGame')      
                 
 
 
